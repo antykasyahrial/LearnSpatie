@@ -20,7 +20,5 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/dashboardManager', function(){
-    return 'manager';})->name('dashboardManager');
-Route::get('/dashboardSupervisor', function(){
-    return 'supervisor';})->name('dashboardSupervisor');
+Route::middleware('role:manager')->get('/dashboardManager', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboardManager');
+Route::middleware('role:supervisor')->get('/dashboardSupervisor', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboardSupervisor');
